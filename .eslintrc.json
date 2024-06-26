@@ -4,7 +4,8 @@
     "no-console": "warn",
     "react/react-in-jsx-scope": "off",
     "sort-imports": "warn",
-    "no-undef": "off"
+    "no-undef": "off",
+    "no-unused-vars": "warn"
   },
   "plugins": ["simple-import-sort"],
   "parserOptions": {

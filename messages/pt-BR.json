@@ -1,0 +1,10 @@
+{
+  "HEADER": {
+    "TITLE": "Título do cabeçalho",
+    "OPTIONS": {
+      "HOME": "Início",
+      "ABOUT": "Sobre",
+      "CONTACT": "Contato"
+    }
+  }
+}
