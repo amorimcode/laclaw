@@ -14,6 +14,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const test = "";
+
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
