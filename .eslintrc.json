@@ -5,5 +5,10 @@
     "react/react-in-jsx-scope": "off",
     "sort-imports": "warn",
     "no-undef": "off"
+  },
+  "plugins": ["simple-import-sort"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
   }
 }

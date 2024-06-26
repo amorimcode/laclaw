@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import Header from "@/components/Header";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 
@@ -17,6 +18,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
+      <Header />
       <body className={inter.className}>{children}</body>
     </html>
   );
