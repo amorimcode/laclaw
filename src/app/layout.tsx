@@ -24,11 +24,9 @@ const RootLayout = async ({
     <html lang="pt-BR">
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
+          <Header />
           {children}
         </NextIntlClientProvider>
-        <Header />
-
-        {children}
       </body>
     </html>
   );
