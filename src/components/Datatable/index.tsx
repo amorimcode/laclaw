@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/table";
 import useTranslate from "@/hooks/useTranslate";
 
-const data: Produto[] = [
+const data: models.Product[] = [
   {
     id: 1,
     nome: "Produto A",
@@ -140,19 +140,7 @@ const data: Produto[] = [
   },
 ];
 
-export type Produto = {
-  id: number;
-  nome: string;
-  categoria: string;
-  preco: number;
-  quantidade: number;
-  ano: number;
-  mes: number;
-  cor: string;
-  fabricante: string;
-};
-
-export const columns: ColumnDef<Produto>[] = [
+export const columns: ColumnDef<models.Product>[] = [
   {
     accessorKey: "nome",
     header: "Nome",
