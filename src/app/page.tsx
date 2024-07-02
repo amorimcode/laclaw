@@ -1,3 +1,5 @@
+"use client";
+
 import { Datatable } from "@/components/Datatable";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -9,9 +11,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useTranslate from "@/hooks/useTranslate";
+import { getInstance } from "../../services/instance";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const { t } = useTranslate("HOME");
+
+  const [fieldsToSum, setFieldsToSum] = useState<string[]>([]);
+  const [fieldsToDetail, setFieldsToDetail] = useState<string[]>([]);
+  const [fieldsToView, setFieldsToView] = useState<string[]>([]);
+
+  const fetchData = async () => {
+    const instance = getInstance();
+    const response = await instance.get("/api", {
+      params: { source: "fonte1" },
+    });
+
+    setFieldsToSum(Object.keys(response.data[0]));
+    setFieldsToDetail(Object.keys(response.data[0]));
+    setFieldsToView(Object.keys(response.data[0]));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col  p-24">
@@ -21,8 +44,11 @@ const Home = () => {
             <SelectValue placeholder={t("SELECTS.SUM")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
+            {fieldsToSum.map((field) => (
+              <SelectItem key={field} value={field}>
+                {field}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
@@ -31,9 +57,11 @@ const Home = () => {
             <SelectValue placeholder={t("SELECTS.VIEW_BY")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            {fieldsToView.map((field) => (
+              <SelectItem key={field} value={field}>
+                {field}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
@@ -42,9 +70,11 @@ const Home = () => {
             <SelectValue placeholder={t("SELECTS.DETAIL_BY")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            {fieldsToDetail.map((field) => (
+              <SelectItem key={field} value={field}>
+                {field}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
