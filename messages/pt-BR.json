@@ -6,5 +6,10 @@
       "ABOUT": "Sobre",
       "CONTACT": "Contato"
     }
+  },
+  "DATATABLE": {
+    "PREVIOUS": "Anterior",
+    "NEXT": "Próximo",
+    "SELECTED_ROWS": "linha(s) selecionada(s)"
   }
 }
