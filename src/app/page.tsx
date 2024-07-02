@@ -90,7 +90,7 @@ const Home = () => {
         </RadioGroup>
       </div>
 
-      <Datatable />
+      <Datatable data={data} />
     </main>
   );
 };
