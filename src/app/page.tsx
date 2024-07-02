@@ -13,17 +13,19 @@ import useTranslate from "@/hooks/useTranslate";
 import { getInstance } from "../../services/instance";
 import { useEffect, useState } from "react";
 import Datatable from "@/components/Datatable";
+import { SOURCES } from "@/constants";
 
 const Home = () => {
   const { t } = useTranslate("HOME");
 
   const [data, setData] = useState<any[]>([]); // [{}]
   const [fields, setFields] = useState<string[]>([]);
+  const [currentSource, setCurrentSource] = useState<string>(SOURCES[0]);
 
   const fetchData = async () => {
     const instance = getInstance();
     const response = await instance.get("/api", {
-      params: { source: "fonte1" },
+      params: { source: currentSource },
     });
 
     setFields(Object.keys(response.data[0]));
@@ -32,11 +34,23 @@ const Home = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentSource]);
 
   return (
     <main className="flex min-h-screen flex-col  p-24">
       <div className="flex space-x-4 mb-5">
+        <Select onValueChange={(value) => setCurrentSource(value)}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder={t("SELECTS.SOURCE")} />
+          </SelectTrigger>
+          <SelectContent>
+            {SOURCES.map((source) => (
+              <SelectItem key={source} value={source}>
+                {source}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <Select>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder={t("SELECTS.SUM")} />

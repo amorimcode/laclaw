@@ -16,7 +16,8 @@
     "SELECTS": {
       "SUM": "Soma",
       "VIEW_BY": "Visualizar por",
-      "DETAIL_BY": "Detalhar por"
+      "DETAIL_BY": "Detalhar por",
+      "SOURCE": "Fonte de dados"
     },
     "RADIO": {
       "GRAPH": "Gráfico",
