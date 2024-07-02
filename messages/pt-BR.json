@@ -10,7 +10,8 @@
   "DATATABLE": {
     "PREVIOUS": "Anterior",
     "NEXT": "Próximo",
-    "SELECTED_ROWS": "linha(s) selecionada(s)"
+    "SELECTED_ROWS": "linha(s) selecionada(s)",
+    "TOTAL": "Total"
   },
   "HOME": {
     "SELECTS": {

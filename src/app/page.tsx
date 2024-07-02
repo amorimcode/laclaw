@@ -18,9 +18,12 @@ import { SOURCES } from "@/constants";
 const Home = () => {
   const { t } = useTranslate("HOME");
 
-  const [data, setData] = useState<any[]>([]); // [{}]
+  const [data, setData] = useState<any[]>([]);
   const [fields, setFields] = useState<string[]>([]);
   const [currentSource, setCurrentSource] = useState<string>(SOURCES[0]);
+  const [sumField, setSumField] = useState<string>("");
+  const [viewBy, setViewBy] = useState<string>("");
+  const [detailBy, setDetailBy] = useState<string>("");
 
   const fetchData = async () => {
     const instance = getInstance();
@@ -51,16 +54,23 @@ const Home = () => {
             ))}
           </SelectContent>
         </Select>
-        <Select>
+        <Select onValueChange={(value) => setSumField(value)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder={t("SELECTS.SUM")} />
           </SelectTrigger>
           <SelectContent>
-            {fields.map((field) => (
-              <SelectItem key={field} value={field}>
-                {field}
-              </SelectItem>
-            ))}
+            {fields
+              .filter(
+                (field) =>
+                  typeof data[0][field] === "number" &&
+                  field !== "ano" &&
+                  field !== "mes"
+              )
+              .map((field) => (
+                <SelectItem key={field} value={field}>
+                  {field}
+                </SelectItem>
+              ))}
           </SelectContent>
         </Select>
 
@@ -104,7 +114,7 @@ const Home = () => {
         </RadioGroup>
       </div>
 
-      <Datatable data={data} />
+      <Datatable data={data} sumField={sumField} />
     </main>
   );
 };

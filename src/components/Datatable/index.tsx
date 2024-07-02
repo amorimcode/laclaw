@@ -26,9 +26,12 @@ import {
 } from "@/components/ui/table";
 import useTranslate from "@/hooks/useTranslate";
 
-type DatatableProps = { data: models.Product[] };
+type DatatableProps = {
+  data: models.Product[] | any[];
+  sumField: string;
+};
 
-const Datatable = ({ data }: DatatableProps) => {
+const Datatable = ({ data, sumField }: DatatableProps) => {
   const { t } = useTranslate("DATATABLE");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -60,6 +63,16 @@ const Datatable = ({ data }: DatatableProps) => {
       },
     }));
   }, [data]);
+
+  const totalSum = React.useMemo(() => {
+    return data.reduce((sum, item) => {
+      const value = item[sumField];
+      if (typeof value === "number") {
+        return sum + value;
+      }
+      return sum;
+    }, 0);
+  }, [data, sumField]);
 
   const table = useReactTable({
     data,
@@ -152,6 +165,15 @@ const Datatable = ({ data }: DatatableProps) => {
             {t("NEXT")}
           </Button>
         </div>
+      </div>
+      <div className="py-4 text-right">
+        <strong>{t("TOTAL")}: </strong>
+        {sumField === "preco"
+          ? new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }).format(totalSum)
+          : totalSum}
       </div>
     </div>
   );
