@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
 
 const Header = () => {
@@ -7,9 +8,12 @@ const Header = () => {
   return (
     <header className="bg-zinc-950 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <img
+        <Image
           className="w-20"
-          src="https://laclaw.com.br/wp-content/uploads/2020/06/logo-ass-contraste.svg"
+          src="/logo.svg"
+          width={500}
+          height={500}
+          alt="Picture of the author"
         />
 
         <nav>
