@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -27,138 +27,178 @@ import {
 } from "@/components/ui/table";
 import useTranslate from "@/hooks/useTranslate";
 
-const data: Payment[] = [
+const data: Produto[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
+    id: 1,
+    nome: "Produto A",
+    categoria: "Eletrônicos",
+    preco: 299.99,
+    quantidade: 50,
+    ano: 2023,
+    mes: 1,
+    cor: "Vermelho",
+    fabricante: "Fabricante X",
   },
   {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
+    id: 2,
+    nome: "Produto B",
+    categoria: "Eletrônicos",
+    preco: 199.99,
+    quantidade: 30,
+    ano: 2023,
+    mes: 2,
+    cor: "Azul",
+    fabricante: "Fabricante Y",
   },
   {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
+    id: 3,
+    nome: "Produto C",
+    categoria: "Móveis",
+    preco: 159.75,
+    quantidade: 20,
+    ano: 2022,
+    mes: 3,
+    cor: "Verde",
+    fabricante: "Fabricante X",
   },
   {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
+    id: 4,
+    nome: "Produto D",
+    categoria: "Móveis",
+    preco: 189.99,
+    quantidade: 15,
+    ano: 2022,
+    mes: 4,
+    cor: "Vermelho",
+    fabricante: "Fabricante Y",
   },
   {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
+    id: 5,
+    nome: "Produto E",
+    categoria: "Roupas",
+    preco: 49.99,
+    quantidade: 100,
+    ano: 2023,
+    mes: 5,
+    cor: "Preto",
+    fabricante: "Fabricante Z",
+  },
+  {
+    id: 6,
+    nome: "Produto F",
+    categoria: "Roupas",
+    preco: 59.99,
+    quantidade: 80,
+    ano: 2023,
+    mes: 6,
+    cor: "Branco",
+    fabricante: "Fabricante X",
+  },
+  {
+    id: 7,
+    nome: "Produto G",
+    categoria: "Livros",
+    preco: 24.5,
+    quantidade: 200,
+    ano: 2021,
+    mes: 7,
+    cor: "Cinza",
+    fabricante: "Fabricante Z",
+  },
+  {
+    id: 8,
+    nome: "Produto H",
+    categoria: "Livros",
+    preco: 29.99,
+    quantidade: 150,
+    ano: 2021,
+    mes: 8,
+    cor: "Cinza",
+    fabricante: "Fabricante Y",
+  },
+  {
+    id: 9,
+    nome: "Produto I",
+    categoria: "Beleza",
+    preco: 19.99,
+    quantidade: 75,
+    ano: 2022,
+    mes: 9,
+    cor: "Branco",
+    fabricante: "Fabricante X",
+  },
+  {
+    id: 10,
+    nome: "Produto J",
+    categoria: "Beleza",
+    preco: 25.99,
+    quantidade: 60,
+    ano: 2022,
+    mes: 10,
+    cor: "Preto",
+    fabricante: "Fabricante Z",
   },
 ];
 
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+export type Produto = {
+  id: number;
+  nome: string;
+  categoria: string;
+  preco: number;
+  quantidade: number;
+  ano: number;
+  mes: number;
+  cor: string;
+  fabricante: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Produto>[] = [
   {
-    id: "select",
-    // header: ({ table }) => (
-    //   <Checkbox
-    //     checked={
-    //       table.getIsAllPageRowsSelected() ||
-    //       (table.getIsSomePageRowsSelected() && "indeterminate")
-    //     }
-    //     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //     aria-label="Select all"
-    //   />
-    // ),
-    // cell: ({ row }) => (
-    //   <Checkbox
-    //     checked={row.getIsSelected()}
-    //     onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //     aria-label="Select row"
-    //   />
-    // ),
-    enableSorting: false,
-    enableHiding: false,
+    accessorKey: "nome",
+    header: "Nome",
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
+    accessorKey: "categoria",
+    header: "Categoria",
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "preco",
+    header: () => <div className="text-right">Preço</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const preco = parseFloat(row.getValue("preco"));
 
       // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat("pt-BR", {
         style: "currency",
-        currency: "USD",
-      }).format(amount);
+        currency: "BRL",
+      }).format(preco);
 
       return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {
-    id: "actions",
-    enableHiding: false,
-    // cell: ({ row }) => {
-    //   const payment = row.original;
-
-    //   return (
-    //     <DropdownMenu>
-    //       <DropdownMenuTrigger asChild>
-    //         <Button variant="ghost" className="h-8 w-8 p-0">
-    //           <span className="sr-only">Open menu</span>
-    //           <MoreHorizontal className="h-4 w-4" />
-    //         </Button>
-    //       </DropdownMenuTrigger>
-    //       <DropdownMenuContent align="end">
-    //         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //         <DropdownMenuItem
-    //           onClick={() => navigator.clipboard.writeText(payment.id)}
-    //         >
-    //           Copy payment ID
-    //         </DropdownMenuItem>
-    //         <DropdownMenuSeparator />
-    //         <DropdownMenuItem>View customer</DropdownMenuItem>
-    //         <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //       </DropdownMenuContent>
-    //     </DropdownMenu>
-    //   );
-    // },
+    accessorKey: "quantidade",
+    header: "Quantidade",
+  },
+  {
+    accessorKey: "ano",
+    header: "Ano",
+  },
+  {
+    accessorKey: "mes",
+    header: "Mês",
+  },
+  {
+    accessorKey: "cor",
+    header: "Cor",
+  },
+  {
+    accessorKey: "fabricante",
+    header: "Fabricante",
   },
 ];
 
-export function Datatable() {
+const Datatable = () => {
   const { t } = useTranslate("DATATABLE");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -262,4 +302,6 @@ export function Datatable() {
       </div>
     </div>
   );
-}
+};
+
+export default Datatable;

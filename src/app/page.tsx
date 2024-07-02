@@ -1,6 +1,5 @@
 "use client";
 
-import { Datatable } from "@/components/Datatable";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -13,13 +12,13 @@ import {
 import useTranslate from "@/hooks/useTranslate";
 import { getInstance } from "../../services/instance";
 import { useEffect, useState } from "react";
+import Datatable from "@/components/Datatable";
 
 const Home = () => {
   const { t } = useTranslate("HOME");
 
-  const [fieldsToSum, setFieldsToSum] = useState<string[]>([]);
-  const [fieldsToDetail, setFieldsToDetail] = useState<string[]>([]);
-  const [fieldsToView, setFieldsToView] = useState<string[]>([]);
+  const [data, setData] = useState<any[]>([]); // [{}]
+  const [fields, setFields] = useState<string[]>([]);
 
   const fetchData = async () => {
     const instance = getInstance();
@@ -27,9 +26,8 @@ const Home = () => {
       params: { source: "fonte1" },
     });
 
-    setFieldsToSum(Object.keys(response.data[0]));
-    setFieldsToDetail(Object.keys(response.data[0]));
-    setFieldsToView(Object.keys(response.data[0]));
+    setFields(Object.keys(response.data[0]));
+    setData(response.data);
   };
 
   useEffect(() => {
@@ -44,7 +42,7 @@ const Home = () => {
             <SelectValue placeholder={t("SELECTS.SUM")} />
           </SelectTrigger>
           <SelectContent>
-            {fieldsToSum.map((field) => (
+            {fields.map((field) => (
               <SelectItem key={field} value={field}>
                 {field}
               </SelectItem>
@@ -57,7 +55,7 @@ const Home = () => {
             <SelectValue placeholder={t("SELECTS.VIEW_BY")} />
           </SelectTrigger>
           <SelectContent>
-            {fieldsToView.map((field) => (
+            {fields.map((field) => (
               <SelectItem key={field} value={field}>
                 {field}
               </SelectItem>
@@ -70,7 +68,7 @@ const Home = () => {
             <SelectValue placeholder={t("SELECTS.DETAIL_BY")} />
           </SelectTrigger>
           <SelectContent>
-            {fieldsToDetail.map((field) => (
+            {fields.map((field) => (
               <SelectItem key={field} value={field}>
                 {field}
               </SelectItem>
