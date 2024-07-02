@@ -11,5 +11,16 @@
     "PREVIOUS": "Anterior",
     "NEXT": "Próximo",
     "SELECTED_ROWS": "linha(s) selecionada(s)"
+  },
+  "HOME": {
+    "SELECTS": {
+      "SUM": "Soma",
+      "VIEW_BY": "Visualizar por",
+      "DETAIL_BY": "Detalhar por"
+    },
+    "RADIO": {
+      "GRAPH": "Gráfico",
+      "TABLE": "Tabela"
+    }
   }
 }
