@@ -26,7 +26,7 @@ const Home = () => {
   const [sumField, setSumField] = useState<string>("");
   const [viewBy, setViewBy] = useState<string>("");
   const [detailBy, setDetailBy] = useState<string>("");
-  const [viewMode, setViewMode] = useState<string>(ViewMode.TABLE);
+  const [viewMode, setViewMode] = useState<string>(ViewMode.GRAPH);
 
   const fetchData = async () => {
     const instance = getInstance();
@@ -40,6 +40,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSource]);
 
   const filteredFields = fields.filter(
@@ -109,7 +110,7 @@ const Home = () => {
       <div>
         <RadioGroup
           onValueChange={(value) => setViewMode(value)}
-          defaultValue={ViewMode.TABLE}
+          defaultValue={ViewMode.GRAPH}
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value={ViewMode.GRAPH} id={ViewMode.GRAPH} />
@@ -123,7 +124,12 @@ const Home = () => {
       </div>
 
       {viewMode === ViewMode.GRAPH ? (
-        <Chart />
+        <Chart
+          data={data}
+          sumField={sumField}
+          viewBy={viewBy}
+          detailBy={detailBy}
+        />
       ) : (
         <Datatable
           data={data}
