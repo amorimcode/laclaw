@@ -36,20 +36,15 @@ const Home = () => {
 
     setFields(Object.keys(response.data[0]));
     setData(response.data);
+    setSumField(Object.keys(response.data[0])[0]);
+    setViewBy(Object.keys(response.data[0])[1]);
+    setDetailBy(Object.keys(response.data[0])[2]);
   };
 
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSource]);
-
-  const filteredFields = fields.filter(
-    (field) =>
-      typeof data[0][field] === "number" &&
-      field !== "ano" &&
-      field !== "mes" &&
-      field !== "id"
-  );
 
   return (
     <main className="flex min-h-screen flex-col p-24">
@@ -72,12 +67,15 @@ const Home = () => {
 
         <div>
           <Label>{t("SELECTS.SUM")}</Label>
-          <Select onValueChange={(value) => setSumField(value)}>
+          <Select
+            onValueChange={(value) => setSumField(value)}
+            value={sumField}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={t("SELECTS.SELECT")} />
             </SelectTrigger>
             <SelectContent>
-              {filteredFields.map((field) => (
+              {fields.map((field) => (
                 <SelectItem key={field} value={field}>
                   {field}
                 </SelectItem>
@@ -88,7 +86,7 @@ const Home = () => {
 
         <div>
           <Label>{t("SELECTS.VIEW_BY")}</Label>
-          <Select onValueChange={(value) => setViewBy(value)}>
+          <Select onValueChange={(value) => setViewBy(value)} value={viewBy}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={t("SELECTS.SELECT")} />
             </SelectTrigger>
@@ -104,7 +102,10 @@ const Home = () => {
 
         <div>
           <Label>{t("SELECTS.DETAIL_BY")}</Label>
-          <Select onValueChange={(value) => setDetailBy(value)}>
+          <Select
+            onValueChange={(value) => setDetailBy(value)}
+            value={detailBy}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={t("SELECTS.SELECT")} />
             </SelectTrigger>
