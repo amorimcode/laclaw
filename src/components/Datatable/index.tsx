@@ -41,6 +41,7 @@ const Datatable = ({ data, sumField, viewBy, detailBy }: DatatableProps) => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  // Filtra dados conforme os props viewBy e detailBy
   const filteredData = React.useMemo(() => {
     let filtered = [...data];
     if (viewBy) {
@@ -52,12 +53,22 @@ const Datatable = ({ data, sumField, viewBy, detailBy }: DatatableProps) => {
     return filtered;
   }, [data, viewBy, detailBy]);
 
+  // Define colunas específicas para viewBy, sumField e detailBy
   const columns = React.useMemo(() => {
     const viewByColumn = viewBy
       ? [
           {
             accessorKey: viewBy,
             header: viewBy.charAt(0).toUpperCase() + viewBy.slice(1),
+          },
+        ]
+      : [];
+
+    const detailByColumn = detailBy
+      ? [
+          {
+            accessorKey: detailBy,
+            header: detailBy.charAt(0).toUpperCase() + detailBy.slice(1),
           },
         ]
       : [];
@@ -84,8 +95,8 @@ const Datatable = ({ data, sumField, viewBy, detailBy }: DatatableProps) => {
         ]
       : [];
 
-    return [...viewByColumn, ...sumFieldColumn];
-  }, [viewBy, sumField]);
+    return [...viewByColumn, ...detailByColumn, ...sumFieldColumn];
+  }, [viewBy, detailBy, sumField]);
 
   const totalSum = React.useMemo(() => {
     return filteredData.reduce((sum, item) => {
