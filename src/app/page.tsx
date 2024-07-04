@@ -24,6 +24,7 @@ const Home = () => {
   const [sumField, setSumField] = useState<string>("");
   const [viewBy, setViewBy] = useState<string>("");
   const [detailBy, setDetailBy] = useState<string>("");
+  const [viewMode, setViewMode] = useState<string>("graph");
 
   const fetchData = async () => {
     const instance = getInstance();
@@ -39,8 +40,16 @@ const Home = () => {
     fetchData();
   }, [currentSource]);
 
+  const filteredFields = fields.filter(
+    (field) =>
+      typeof data[0][field] === "number" &&
+      field !== "ano" &&
+      field !== "mes" &&
+      field !== "id"
+  );
+
   return (
-    <main className="flex min-h-screen flex-col  p-24">
+    <main className="flex min-h-screen flex-col p-24">
       <div className="flex space-x-4 mb-5">
         <Select onValueChange={(value) => setCurrentSource(value)}>
           <SelectTrigger className="w-[180px]">
@@ -54,28 +63,21 @@ const Home = () => {
             ))}
           </SelectContent>
         </Select>
+
         <Select onValueChange={(value) => setSumField(value)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder={t("SELECTS.SUM")} />
           </SelectTrigger>
           <SelectContent>
-            {fields
-              .filter(
-                (field) =>
-                  typeof data[0][field] === "number" &&
-                  field !== "ano" &&
-                  field !== "mes" &&
-                  field !== "id"
-              )
-              .map((field) => (
-                <SelectItem key={field} value={field}>
-                  {field}
-                </SelectItem>
-              ))}
+            {filteredFields.map((field) => (
+              <SelectItem key={field} value={field}>
+                {field}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
-        <Select>
+        <Select onValueChange={(value) => setViewBy(value)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder={t("SELECTS.VIEW_BY")} />
           </SelectTrigger>
@@ -88,7 +90,7 @@ const Home = () => {
           </SelectContent>
         </Select>
 
-        <Select>
+        <Select onValueChange={(value) => setDetailBy(value)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder={t("SELECTS.DETAIL_BY")} />
           </SelectTrigger>
@@ -103,19 +105,31 @@ const Home = () => {
       </div>
 
       <div>
-        <RadioGroup defaultValue="option-one">
+        <RadioGroup
+          onValueChange={(value) => setViewMode(value)}
+          defaultValue="graph"
+        >
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-one" id="option-one" />
-            <Label htmlFor="option-one">{t("RADIO.GRAPH")}</Label>
+            <RadioGroupItem value="graph" id="graph" />
+            <Label htmlFor="graph">{t("RADIO.GRAPH")}</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-two" id="option-two" />
-            <Label htmlFor="option-two">{t("RADIO.TABLE")}</Label>
+            <RadioGroupItem value="table" id="table" />
+            <Label htmlFor="table">{t("RADIO.TABLE")}</Label>
           </div>
         </RadioGroup>
       </div>
 
-      <Datatable data={data} sumField={sumField} />
+      {viewMode === "graph" ? (
+        <></>
+      ) : (
+        <Datatable
+          data={data}
+          sumField={sumField}
+          viewBy={viewBy}
+          detailBy={detailBy}
+        />
+      )}
     </main>
   );
 };

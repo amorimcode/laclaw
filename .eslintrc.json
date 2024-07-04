@@ -7,7 +7,6 @@
     "no-undef": "off",
     "no-unused-vars": "warn"
   },
-  "plugins": ["simple-import-sort"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest"
