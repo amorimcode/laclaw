@@ -14,6 +14,8 @@ import { getInstance } from "../../services/instance";
 import { useEffect, useState } from "react";
 import Datatable from "@/components/Datatable";
 import { SOURCES } from "@/constants";
+import Chart from "@/components/Chart";
+import { ViewMode } from "@/enumerators";
 
 const Home = () => {
   const { t } = useTranslate("HOME");
@@ -120,12 +122,16 @@ const Home = () => {
         </RadioGroup>
       </div>
 
-      <Datatable
-        data={data}
-        sumField={sumField}
-        viewBy={viewBy}
-        detailBy={detailBy}
-      />
+      {viewMode === ViewMode.GRAPH ? (
+        <Chart />
+      ) : (
+        <Datatable
+          data={data}
+          sumField={sumField}
+          viewBy={viewBy}
+          detailBy={detailBy}
+        />
+      )}
     </main>
   );
 };
