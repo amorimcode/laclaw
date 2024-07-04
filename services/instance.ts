@@ -1,6 +1,6 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance } from "axios";
 
-const BASE_URL = "/";
+const BASE_URL = "/api";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

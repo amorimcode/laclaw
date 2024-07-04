@@ -20,7 +20,8 @@
       "SUM": "Soma",
       "VIEW_BY": "Visualizar por",
       "DETAIL_BY": "Detalhar por",
-      "SOURCE": "Fonte de dados"
+      "SOURCE": "Fonte de dados",
+      "SELECT": "Selecione"
     },
     "RADIO": {
       "GRAPH": "Gráfico",

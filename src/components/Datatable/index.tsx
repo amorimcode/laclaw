@@ -27,8 +27,8 @@ import useTranslate from "@/hooks/useTranslate";
 type DatatableProps = {
   data: models.Product[] | any[];
   sumField: string;
-  viewBy?: string; // Novo prop
-  detailBy?: string; // Novo prop
+  viewBy?: string;
+  detailBy?: string;
 };
 
 const Datatable = ({ data, sumField, viewBy, detailBy }: DatatableProps) => {
@@ -41,7 +41,6 @@ const Datatable = ({ data, sumField, viewBy, detailBy }: DatatableProps) => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  // Filtra dados conforme os props viewBy e detailBy
   const filteredData = React.useMemo(() => {
     let filtered = [...data];
     if (viewBy) {
@@ -53,7 +52,6 @@ const Datatable = ({ data, sumField, viewBy, detailBy }: DatatableProps) => {
     return filtered;
   }, [data, viewBy, detailBy]);
 
-  // Define colunas específicas para viewBy, sumField e detailBy
   const columns = React.useMemo(() => {
     const viewByColumn = viewBy
       ? [

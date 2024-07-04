@@ -26,11 +26,11 @@ const Home = () => {
   const [sumField, setSumField] = useState<string>("");
   const [viewBy, setViewBy] = useState<string>("");
   const [detailBy, setDetailBy] = useState<string>("");
-  const [viewMode, setViewMode] = useState<string>(ViewMode.GRAPH);
+  const [viewMode, setViewMode] = useState<string>(ViewMode.TABLE);
 
   const fetchData = async () => {
     const instance = getInstance();
-    const response = await instance.get("/api", {
+    const response = await instance.get("/", {
       params: { source: currentSource },
     });
 
@@ -54,63 +54,75 @@ const Home = () => {
   return (
     <main className="flex min-h-screen flex-col p-24">
       <div className="flex space-x-4 mb-5">
-        <Select onValueChange={(value) => setCurrentSource(value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={t("SELECTS.SOURCE")} />
-          </SelectTrigger>
-          <SelectContent>
-            {SOURCES.map((source) => (
-              <SelectItem key={source} value={source}>
-                {source}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div>
+          <Label>{t("SELECTS.SOURCE")}</Label>
+          <Select onValueChange={(value) => setCurrentSource(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder={t("SELECTS.SELECT")} />
+            </SelectTrigger>
+            <SelectContent>
+              {SOURCES.map((source) => (
+                <SelectItem key={source} value={source}>
+                  {source}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-        <Select onValueChange={(value) => setSumField(value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={t("SELECTS.SUM")} />
-          </SelectTrigger>
-          <SelectContent>
-            {filteredFields.map((field) => (
-              <SelectItem key={field} value={field}>
-                {field}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div>
+          <Label>{t("SELECTS.SUM")}</Label>
+          <Select onValueChange={(value) => setSumField(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder={t("SELECTS.SELECT")} />
+            </SelectTrigger>
+            <SelectContent>
+              {filteredFields.map((field) => (
+                <SelectItem key={field} value={field}>
+                  {field}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-        <Select onValueChange={(value) => setViewBy(value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={t("SELECTS.VIEW_BY")} />
-          </SelectTrigger>
-          <SelectContent>
-            {fields.map((field) => (
-              <SelectItem key={field} value={field}>
-                {field}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div>
+          <Label>{t("SELECTS.VIEW_BY")}</Label>
+          <Select onValueChange={(value) => setViewBy(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder={t("SELECTS.SELECT")} />
+            </SelectTrigger>
+            <SelectContent>
+              {fields.map((field) => (
+                <SelectItem key={field} value={field}>
+                  {field}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-        <Select onValueChange={(value) => setDetailBy(value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={t("SELECTS.DETAIL_BY")} />
-          </SelectTrigger>
-          <SelectContent>
-            {fields.map((field) => (
-              <SelectItem key={field} value={field}>
-                {field}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div>
+          <Label>{t("SELECTS.DETAIL_BY")}</Label>
+          <Select onValueChange={(value) => setDetailBy(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder={t("SELECTS.SELECT")} />
+            </SelectTrigger>
+            <SelectContent>
+              {fields.map((field) => (
+                <SelectItem key={field} value={field}>
+                  {field}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div>
         <RadioGroup
           onValueChange={(value) => setViewMode(value)}
-          defaultValue={ViewMode.GRAPH}
+          defaultValue={ViewMode.TABLE}
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value={ViewMode.GRAPH} id={ViewMode.GRAPH} />
