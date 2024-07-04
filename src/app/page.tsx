@@ -64,7 +64,8 @@ const Home = () => {
                 (field) =>
                   typeof data[0][field] === "number" &&
                   field !== "ano" &&
-                  field !== "mes"
+                  field !== "mes" &&
+                  field !== "id"
               )
               .map((field) => (
                 <SelectItem key={field} value={field}>
