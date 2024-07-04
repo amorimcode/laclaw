@@ -1,8 +1,12 @@
 import { useTranslations } from "next-intl";
 
 const useTranslate = (key?: string) => {
-  const t = useTranslations(key);
-  return { t };
+  try {
+    const t = useTranslations(key);
+    return { t };
+  } catch (error) {
+    return { t: (key: string) => key };
+  }
 };
 
 export default useTranslate;
