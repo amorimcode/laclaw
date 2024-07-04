@@ -27,9 +27,11 @@ import useTranslate from "@/hooks/useTranslate";
 type DatatableProps = {
   data: models.Product[] | any[];
   sumField: string;
+  viewBy?: string; // Novo prop
+  detailBy?: string; // Novo prop
 };
 
-const Datatable = ({ data, sumField }: DatatableProps) => {
+const Datatable = ({ data, sumField, viewBy, detailBy }: DatatableProps) => {
   const { t } = useTranslate("DATATABLE");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -39,41 +41,64 @@ const Datatable = ({ data, sumField }: DatatableProps) => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const columns = React.useMemo(() => {
-    if (data.length === 0) return [];
+  const filteredData = React.useMemo(() => {
+    let filtered = [...data];
+    if (viewBy) {
+      filtered = filtered.filter((item) => item[viewBy]);
+    }
+    if (detailBy) {
+      filtered = filtered.filter((item) => item[detailBy]);
+    }
+    return filtered;
+  }, [data, viewBy, detailBy]);
 
-    const keys = Object.keys(data[0]);
-    return keys.map((key) => ({
-      accessorKey: key,
-      header: key.charAt(0).toUpperCase() + key.slice(1),
-      cell: ({ row }: { row: any }) => {
-        const value = row.getValue(key);
-        if (typeof value === "number") {
-          if (key === "preco") {
-            return new Intl.NumberFormat("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            }).format(value);
-          }
-          return value;
-        }
-        return value;
-      },
-    }));
-  }, [data]);
+  const columns = React.useMemo(() => {
+    const viewByColumn = viewBy
+      ? [
+          {
+            accessorKey: viewBy,
+            header: viewBy.charAt(0).toUpperCase() + viewBy.slice(1),
+          },
+        ]
+      : [];
+
+    const sumFieldColumn = sumField
+      ? [
+          {
+            accessorKey: sumField,
+            header: sumField.charAt(0).toUpperCase() + sumField.slice(1),
+            cell: ({ row }: { row: any }) => {
+              const value = row.getValue(sumField);
+              if (typeof value === "number") {
+                if (sumField === "preco") {
+                  return new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(value);
+                }
+                return value;
+              }
+              return value;
+            },
+          },
+        ]
+      : [];
+
+    return [...viewByColumn, ...sumFieldColumn];
+  }, [viewBy, sumField]);
 
   const totalSum = React.useMemo(() => {
-    return data.reduce((sum, item) => {
+    return filteredData.reduce((sum, item) => {
       const value = item[sumField];
       if (typeof value === "number") {
         return sum + value;
       }
       return sum;
     }, 0);
-  }, [data, sumField]);
+  }, [filteredData, sumField]);
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -117,19 +142,21 @@ const Datatable = ({ data, sumField }: DatatableProps) => {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </>
               ))
             ) : (
               <TableRow>
@@ -137,7 +164,7 @@ const Datatable = ({ data, sumField }: DatatableProps) => {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Sem resultados
                 </TableCell>
               </TableRow>
             )}

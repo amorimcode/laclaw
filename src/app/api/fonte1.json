@@ -69,7 +69,7 @@
     "id": 7,
     "nome": "Produto G",
     "categoria": "Livros",
-    "preco": 24.50,
+    "preco": 24.5,
     "quantidade": 200,
     "ano": 2021,
     "mes": 7,

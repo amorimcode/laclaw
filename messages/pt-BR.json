@@ -11,7 +11,9 @@
     "PREVIOUS": "Anterior",
     "NEXT": "Próximo",
     "SELECTED_ROWS": "linha(s) selecionada(s)",
-    "TOTAL": "Total"
+    "TOTAL": "Total",
+    "VIEW_BY": "Visualizar por",
+    "DETAIL_BY": "Detalhar por"
   },
   "HOME": {
     "SELECTS": {

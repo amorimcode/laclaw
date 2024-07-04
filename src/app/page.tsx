@@ -120,16 +120,12 @@ const Home = () => {
         </RadioGroup>
       </div>
 
-      {viewMode === "graph" ? (
-        <></>
-      ) : (
-        <Datatable
-          data={data}
-          sumField={sumField}
-          viewBy={viewBy}
-          detailBy={detailBy}
-        />
-      )}
+      <Datatable
+        data={data}
+        sumField={sumField}
+        viewBy={viewBy}
+        detailBy={detailBy}
+      />
     </main>
   );
 };
