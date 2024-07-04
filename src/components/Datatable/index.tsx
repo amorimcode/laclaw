@@ -146,27 +146,7 @@ const Datatable = ({ data, sumField }: DatatableProps) => {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {t("PREVIOUS")}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            {t("NEXT")}
-          </Button>
-        </div>
-      </div>
-      <div className="py-4 text-right">
+      <div className="d-flex pt-4">
         <strong>{t("TOTAL")}: </strong>
         {sumField === "preco"
           ? new Intl.NumberFormat("pt-BR", {
