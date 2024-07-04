@@ -20,7 +20,6 @@ type ChartProps = {
   detailBy?: string;
 };
 
-// Função para agrupar os dados
 const groupData = (data: any[], key: string, sumField: string) => {
   return data.reduce((acc, item) => {
     const groupKey = item[key];
@@ -33,7 +32,6 @@ const groupData = (data: any[], key: string, sumField: string) => {
 };
 
 const Chart = ({ data, sumField, viewBy, detailBy }: ChartProps) => {
-  // Agrupa os dados se viewBy e detailBy forem iguais
   const processedData = React.useMemo(() => {
     if (viewBy && detailBy && viewBy === detailBy) {
       const groupedData = groupData(data, viewBy, sumField);
@@ -63,13 +61,13 @@ const Chart = ({ data, sumField, viewBy, detailBy }: ChartProps) => {
           <Legend />
           <Bar
             dataKey={sumField}
-            fill="#8884d8"
+            fill="#3cd2e6"
             activeBar={<Rectangle fill="pink" stroke="blue" />}
           />
           {detailBy && detailBy !== viewBy && (
             <Bar
               dataKey={detailBy}
-              fill="#82ca9d"
+              fill="black"
               activeBar={<Rectangle fill="gold" stroke="purple" />}
             />
           )}
