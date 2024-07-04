@@ -5,6 +5,8 @@ import data3 from "./fonte3.json";
 import data4 from "./fonte4.json";
 import data5 from "./fonte5.json";
 
+// SIMULATE API RESPONSE
+
 export async function GET(req?: Request) {
   const url = new URL(req?.url ?? "");
   const source = url.searchParams.get("source");
