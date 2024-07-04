@@ -26,7 +26,7 @@ const Home = () => {
   const [sumField, setSumField] = useState<string>("");
   const [viewBy, setViewBy] = useState<string>("");
   const [detailBy, setDetailBy] = useState<string>("");
-  const [viewMode, setViewMode] = useState<string>("graph");
+  const [viewMode, setViewMode] = useState<string>(ViewMode.TABLE);
 
   const fetchData = async () => {
     const instance = getInstance();
@@ -109,15 +109,15 @@ const Home = () => {
       <div>
         <RadioGroup
           onValueChange={(value) => setViewMode(value)}
-          defaultValue="graph"
+          defaultValue={ViewMode.TABLE}
         >
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="graph" id="graph" />
-            <Label htmlFor="graph">{t("RADIO.GRAPH")}</Label>
+            <RadioGroupItem value={ViewMode.GRAPH} id={ViewMode.GRAPH} />
+            <Label htmlFor={ViewMode.GRAPH}>{t("RADIO.GRAPH")}</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="table" id="table" />
-            <Label htmlFor="table">{t("RADIO.TABLE")}</Label>
+            <RadioGroupItem value={ViewMode.TABLE} id={ViewMode.TABLE} />
+            <Label htmlFor={ViewMode.TABLE}>{t("RADIO.TABLE")}</Label>
           </div>
         </RadioGroup>
       </div>
