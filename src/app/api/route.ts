@@ -7,7 +7,7 @@ import data5 from "./fonte5.json";
 
 // SIMULATE API RESPONSE
 
-export async function GET(req?: Request) {
+export async function GET(req: Request) {
   const url = new URL(req?.url ?? "");
   const source = url.searchParams.get("source");
 
