@@ -43,7 +43,7 @@ const Home = () => {
       setViewBy(Object.keys(response.data[0])[1]);
       setDetailBy(Object.keys(response.data[0])[2]);
     } catch (error) {
-      console.error(error);
+      window.alert(t("ERRORS.FETCH"));
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,10 @@ const Home = () => {
           <div className="flex space-x-4 mb-5">
             <div>
               <Label>{t("SELECTS.SOURCE")}</Label>
-              <Select onValueChange={(value) => setCurrentSource(value)}>
+              <Select
+                value={currentSource}
+                onValueChange={(value) => setCurrentSource(value)}
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder={t("SELECTS.SELECT")} />
                 </SelectTrigger>

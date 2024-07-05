@@ -21,7 +21,10 @@
       "VIEW_BY": "Visualizar por",
       "DETAIL_BY": "Detalhar por",
       "SOURCE": "Fonte de dados",
-      "SELECT": "Selecione"
+      "SELECT": "Selecione",
+      "ERRORS": {
+        "FETCH": "Erro ao buscar dados"
+      }
     },
     "RADIO": {
       "GRAPH": "Gráfico",
