@@ -1,10 +1,23 @@
 import { getRequestConfig } from "next-intl/server";
+import { headers } from "next/headers";
 
 export default getRequestConfig(async () => {
-  const locale = "pt-BR";
+  const headersList = headers();
+  const defaultLocale = headersList.get("accept-language")?.split(",").shift();
+  const locale = defaultLocale;
 
-  return {
-    locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
-  };
+  console.log("locale", locale);
+
+  try {
+    return {
+      locale,
+      messages: (await import(`../messages/${locale}.json`)).default,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      locale,
+      messages: (await import(`../messages/pt-BR.json`)).default,
+    };
+  }
 });
