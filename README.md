@@ -19,11 +19,6 @@ Acesse a aplicação pelo link https://laclaw-amorimcodes-projects.vercel.app/
 - **Totalização**: Opção para somar/totalizar um campo específico dos dados selecionados.
 - **Detalhamento**: Escolha de campos para detalhamento dos valores exibidos no eixo Y da tabela e no gráfico, com possibilidade de adicionar uma segunda dimensão para detalhamento no eixo X.
 - **Internacionalização**: Idioma seguindo o do browser do usuário, com suporte para inglês 
-
-## Requisitos Técnicos
-
-- **TypeScript**: Utilizado para tipagem estática e melhor escalabilidade do código.
-- **Server Components**: Aproveitamento de Server Components do Next.js para renderização eficiente no servidor.
   
 ## Instalação e Uso
 
