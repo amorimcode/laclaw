@@ -18,7 +18,7 @@ Acesse a aplicação pelo link https://laclaw-amorimcodes-projects.vercel.app/
 - **Seleção de Fonte de Dados**: Combo box para escolha de uma das cinco fontes JSON disponíveis.
 - **Totalização**: Opção para somar/totalizar um campo específico dos dados selecionados.
 - **Detalhamento**: Escolha de campos para detalhamento dos valores exibidos no eixo Y da tabela e no gráfico, com possibilidade de adicionar uma segunda dimensão para detalhamento no eixo X.
-- **Internacionalização**: Idioma seguindo o do browser do usuário.
+- **Internacionalização**: Idioma seguindo o do browser do usuário, com suporte para inglês 
 
 ## Requisitos Técnicos
 
