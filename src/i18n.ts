@@ -14,7 +14,6 @@ export default getRequestConfig(async () => {
       messages: (await import(`../messages/${locale}.json`)).default,
     };
   } catch (error) {
-    console.error(error);
     return {
       locale,
       messages: (await import(`../messages/pt-BR.json`)).default,
