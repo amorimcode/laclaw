@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +19,10 @@ const RootLayout = async ({
   children: React.ReactNode;
 }>) => {
   const messages = await getMessages();
+  const locale = await getLocale();
 
   return (
-    <html lang="pt-BR">
+    <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <Header />
